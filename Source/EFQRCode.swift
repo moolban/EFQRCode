@@ -40,7 +40,21 @@ public class EFQRCode: NSObject {
         return EFQRCodeRecognizer(image: image).recognize()
     }
     #endif
-
+        
+    @objc public static func generate(
+        content: String
+        ) -> CGImage? {
+        
+        let generator = EFQRCodeGenerator(content: content, size: EFIntSize(width: 600, height: 600))
+        generator.setColors(backgroundColor: CGColor.white()!, foregroundColor: CGColor.black()!)
+        generator.setInputCorrectionLevel(inputCorrectionLevel: .h)
+        generator.setAllowTransparent(allowTransparent: true)
+        generator.setPointShape(pointShape: .square)
+        generator.setMode(mode: .none)
+        generator.setForegroundPointOffset(foregroundPointOffset: 0)
+        return generator.generate()
+    }
+    
     // MARK: - Generator
     public static func generate(
         content: String,
